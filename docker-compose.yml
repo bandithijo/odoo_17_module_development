@@ -1,0 +1,26 @@
+services:
+  odoo:
+    container_name: odoo
+    image: odoo:17.0
+    env_file: .env
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./etc/odoo:/etc/odoo
+      - ./addons:/mnt/extra-addons
+      - ./var/lib/odoo:/var/lib/odoo
+    depends_on:
+      - odoo-postgres
+    networks:
+      - odoo-network
+  odoo-postgres:
+    container_name: odoo-postgres
+    image: postgres:16.1
+    env_file: .env
+    volumes:
+      - ./var/lib/postgresql/data/pgdata:/var/lib/postgresql/data/pgdata
+    networks:
+      - odoo-network
+networks:
+  odoo-network:
+    driver: bridge
