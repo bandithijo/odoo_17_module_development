@@ -1,0 +1,19 @@
+<odoo>
+    <!-- Action -->
+    <record id="estate_property_tag_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Search & Filter -->
+    <record id="estate_property_tag_view_search_filter" model="ir.ui.view">
+        <field name="name">estate.property.tag.view.search.filter</field>
+        <field name="model">estate.property.tag</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+</odoo>
