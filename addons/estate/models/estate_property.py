@@ -104,3 +104,9 @@ class EstateProperty(models.Model):
                 raise UserError("Sold property cannot be canceled.")
             record.state = "canceled"
         return True
+
+    def unlink(self):
+        for record in self:
+            if record.state not in ["new", "canceled"]:
+                raise UserError("You cannot delete a property except it is 'New' or 'Canceled' state.")
+        return super(EstateProperty, self).unlink()
