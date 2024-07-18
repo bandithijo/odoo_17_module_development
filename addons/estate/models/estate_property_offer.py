@@ -20,7 +20,7 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one("estate.property", required=True)
     validity = fields.Integer("validity (days)", default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline", string="Deadline")
-    property_state = fields.Selection(related="property_id.state", readonly=True)
+    property_state = fields.Selection(related="property_id.state", readonly=True, string="Property Status")
     property_type_id = fields.Many2one(related="property_id.property_type_id", store=True)
 
     _sql_constraints = [
@@ -51,6 +51,7 @@ class EstatePropertyOffer(models.Model):
             record.status = "accepted"
             record.property_id.buyer_id = record.partner_id
             record.property_id.selling_price = record.price
+            record.property_id.state = 'offer_accepted'
         return True
 
     def action_refuse(self):
